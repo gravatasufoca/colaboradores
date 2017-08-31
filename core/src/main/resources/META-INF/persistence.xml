@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="testecolobaradorPU" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.gravatasufoca.model.Colaborador</class>
+        <class>com.gravatasufoca.model.Cargo</class>
+        <class>com.gravatasufoca.model.Compentencia</class>
+        <class>com.gravatasufoca.model.Contato</class>
+        <class>com.gravatasufoca.model.TipoCompetencia</class>
+        <class>com.gravatasufoca.model.TipoContato</class>
+        <class>com.gravatasufoca.model.Unidade</class>
+
+        <properties>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="root"/>
+            <property name="hibernate.connection.url" value="${hibernate.conexao}"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.default_schema" value="${hibernate.schema}"/>
+        </properties>
+    </persistence-unit>
+</persistence>

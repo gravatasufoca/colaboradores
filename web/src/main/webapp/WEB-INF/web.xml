@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+
+    <session-config>
+        <session-timeout>20</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+
+    <servlet-mapping>
+        <servlet-name>javax.ws.rs.core.Application</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+
+
+    <persistence-context-ref>
+        <persistence-context-ref-name>
+            testecolobaradorPU
+        </persistence-context-ref-name>
+        <persistence-unit-name>testecolobaradorPU</persistence-unit-name>
+        <persistence-context-type>Transaction</persistence-context-type>
+    </persistence-context-ref>
+
+</web-app>
+
