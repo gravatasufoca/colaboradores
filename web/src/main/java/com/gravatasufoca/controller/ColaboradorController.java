@@ -1,5 +1,6 @@
 package com.gravatasufoca.controller;
 
+import com.gravatasufoca.model.Cargo;
 import com.gravatasufoca.model.Colaborador;
 import com.gravatasufoca.services.ColaboradorService;
 
@@ -24,6 +25,7 @@ public class ColaboradorController {
         Colaborador colaborador=new Colaborador();
         colaborador.setNome("Bruno");
         colaborador.setEndereco("teste");
+        colaborador.setCargo(new Cargo());
         colaboradorService.salvar(colaborador);
     }
 }

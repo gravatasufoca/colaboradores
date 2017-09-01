@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br" ng-controller="msController">
+<html lang="pt-br"-><!-- ng-controller="msController">-->
 <head>
-    <!--<script defer="defer" data-main="app/main.js" src="vendor/requirejs/2.1.10/require.min.js"></script>-->
+    <script defer="defer" data-main="app/main.js" src="vendor/requirejs/require.min.js"></script>
 
     <meta charset="utf-8">
     <title>Teste Caixa Seguradora</title>
@@ -14,10 +14,11 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
 
+    <link type="text/css" rel="stylesheet" href="assets/css/ui-bootstrap-2.5.0-csp.css"/>
+
 
 </head>
-<body id="content" class="nojs">
-
-   ola mundo
+<body id="content" class="nojs" ng-controller="mainController">
+   <div ui-view class="section"></div>
 </body>
 </html>

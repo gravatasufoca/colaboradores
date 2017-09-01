@@ -25,6 +25,9 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
     public void salvar(EntidadeBasica entidade) {
         if(validarObrigatorios((Colaborador) entidade)){
             inserir((Colaborador) entidade);
+        }else{
+            erros.size();
         }
+
     }
 }

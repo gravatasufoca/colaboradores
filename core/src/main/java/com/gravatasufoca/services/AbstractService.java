@@ -4,12 +4,15 @@ import com.gravatasufoca.model.EntidadeBasica;
 import com.gravatasufoca.repositorios.Repositorio;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * criado por bruno em 30/08/17.
@@ -17,6 +20,9 @@ import java.util.List;
 public abstract class AbstractService<E extends EntidadeBasica> implements Serializable {
 
     private static final long serialVersionUID = 8355454104338297239L;
+    private final String MSG_OBRIGATORIO = "MSG_001";
+
+    protected Map<String, String> erros = new HashMap<>();
 
     protected abstract Repositorio<E> getRepositorio();
 
@@ -53,40 +59,57 @@ public abstract class AbstractService<E extends EntidadeBasica> implements Seria
     }
 
     protected boolean validarObrigatorios(E entidade) {
+        return validarObrigatorios(entidade,null);
+    }
+
+    private boolean validarObrigatorios(E entidade, Method pai) {
 
         if (entidade != null) {
+            boolean check = true;
             for (Method method : entidade.getClass().getDeclaredMethods()) {
                 if (isRequired(method)) {
                     method.setAccessible(true);
                     try {
-                        Object obj=method.invoke(entidade);
-                        if(obj instanceof EntidadeBasica){
-                            return validarObrigatorios((E) obj);
+                        Object obj = method.invoke(entidade);
+                        if (obj instanceof EntidadeBasica) {
+                            if (!validarObrigatorios((E) obj, method)) {
+                                check = false;
+                                addErro(method, pai);
+                            }
+                        } else if (obj == null) {
+                            check = false;
+                            addErro(method, pai);
                         }
-                        return !(obj==null);
 
                     } catch (IllegalAccessException | InvocationTargetException e) {
-                        e.printStackTrace();
+
                     } finally {
                         method.setAccessible(false);
                     }
                 }
             }
-            return true;
+            return check;
 
         }
         return false;
     }
 
+    private void addErro(Method metodo, Method pai) {
+        erros.put(pai != null ? pai.getName().replace("get", "") + "#" + metodo.getName().replace("get", "") : metodo.getName().replace("get", ""), MSG_OBRIGATORIO);
+    }
+
     private boolean isRequired(Method method) {
-        Column coluna= method.getAnnotation(Column.class);
-        if(coluna!=null){
-            return coluna.nullable();
+        if (method.isAnnotationPresent(Id.class)) {
+            return false;
+        }
+        Column coluna = method.getAnnotation(Column.class);
+        if (coluna != null) {
+            return !coluna.nullable();
         }
 
-        JoinColumn join= method.getAnnotation(JoinColumn.class);
-        if(join!=null){
-            return join.nullable();
+        JoinColumn join = method.getAnnotation(JoinColumn.class);
+        if (join != null) {
+            return !join.nullable();
         }
 
         return false;
