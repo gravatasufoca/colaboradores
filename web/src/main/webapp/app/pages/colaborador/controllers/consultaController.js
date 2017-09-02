@@ -1,16 +1,16 @@
 define(['msAppJs'], function (app) {
 
-    app.controller('loginController', [
+    app.controller('consultaController', [
         '$scope',
         '$rootScope',
         '$timeout',
-        'loginService',
+        'colaboradorService',
         '$notifyService',
         "$state",
         function ($scope,
                   $rootScope,
                   $timeout,
-                  loginService,
+                  colaboradorService,
                   $notifyService,
                   $state) {
 
