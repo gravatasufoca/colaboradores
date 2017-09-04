@@ -1,19 +1,20 @@
 var appConfig = {
-
+    appContextRoot:"colaboradores"
 };
 
 
 requirejs.config({
     paths: {
         'mainJs': ['../vendor/main'],
-        'msAppJs': ['../vendor/app']
+        'msAppJs': ['../vendor/app'],
+
     },
     shim: {
         'msAppJs': {
             deps: ['mainJs']
         }
     },
-    deps: ['mainJs', 'msAppJs']
+    deps: ['mainJs', 'msAppJs'],
 });
 
 require(['msAppJs','../app/mainController'

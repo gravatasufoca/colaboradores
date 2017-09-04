@@ -1,0 +1,17 @@
+.back-white {
+    background: white !important;
+}
+
+.topup {
+    top: -100px;
+}
+
+.search-icon {
+    position: relative;
+    z-index: 1;
+    left: -25px;
+    top: 10px;
+    color: #7B7B7B;
+    cursor: pointer;
+    width: 0;
+}

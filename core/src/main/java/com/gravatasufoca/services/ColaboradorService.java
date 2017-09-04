@@ -4,14 +4,19 @@ import com.gravatasufoca.model.Colaborador;
 import com.gravatasufoca.model.EntidadeBasica;
 import com.gravatasufoca.repositorios.Repositorio;
 import com.gravatasufoca.repositorios.RepositorioColaborador;
-import com.gravatasufoca.repositorios.impl.RepositorioColaboradorImpl;
+
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Map;
 
 /**
  * criado por bruno em 30/08/17.
  */
 public class ColaboradorService extends AbstractService<Colaborador> implements IService{
 
-    private RepositorioColaborador repositorio = new RepositorioColaboradorImpl();
+//    private RepositorioColaborador repositorio = new RepositorioColaboradorImpl();
+    @Inject
+    private RepositorioColaborador repositorio;
 
     public ColaboradorService() {
     }
@@ -22,12 +27,14 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
     }
 
     @Override
-    public void salvar(EntidadeBasica entidade) {
+    public Map<String, String> salvar(EntidadeBasica entidade) {
         if(validarObrigatorios((Colaborador) entidade)){
             inserir((Colaborador) entidade);
-        }else{
-            erros.size();
         }
+        return erros;
+    }
 
+    public List<Colaborador> consultar(String nome) {
+        return repositorio.listarPorNome(nome);
     }
 }

@@ -1,10 +1,9 @@
 package com.gravatasufoca.repositorios;
 
+import org.hibernate.criterion.Order;
 
 import java.io.Serializable;
 import java.util.List;
-
-import org.hibernate.criterion.Order;
 
 
 /**

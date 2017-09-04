@@ -1,25 +1,36 @@
 package com.gravatasufoca.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
 /**
  * criado por bruno em 30/08/17.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "tb_colaborador")
 public class Colaborador extends EntidadeBasica {
 
     private static final long serialVersionUID = 2886185930623763037L;
-
+    @XmlElement
     private Integer id;
+    @XmlElement
     private String nome;
+    @XmlElement
     private String resumo;
+    @XmlElement
     private String endereco;
+    @XmlElement
     private Cargo cargo;
+    @XmlElement
     private Unidade unidade;
+    @XmlElementWrapper()
+    @XmlElement(name="competencia")
     private List<Compentencia> competencias;
+    @XmlElementWrapper()
+    @XmlElement(name="contatos")
     private List<Contato> contatos;
 
     @Override

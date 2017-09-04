@@ -11,13 +11,6 @@ define([
             return {
                 restrict: 'EA',
                 controller: 'alertController',
-                /*
-                 template:"<div class='alert' ng-class='\"alert-\" + (type || \"warning\")'>\n" +
-                 "    <button ng-show='closeable' type='button' class='close' ng-click='close()'>&times;</button>\n" +
-                 "    <div ng-transclude></div>\n" +
-                 "</div>\n",
-                 */
-                //transclude:true,
                 replace: true,
                 scope: true,
                 link: function (scope, element, attrs, ctrl) {
@@ -50,11 +43,11 @@ define([
 
                         var template = angular.element("<div ng-repeat='alert in messages' class='alert' ng-class='\"alert-\" + (alert.type || \"warning\")'>\n" +
                             "    <button type='button' class='close' ng-click='closeAlert(messages, $index)'>&times;</button>\n" +
-                            "    <span compile='alert.message'></span>\n" +
+                            "    <span ng-bind-html='alert.message'></span>\n" +
                             "</div>\n");
 
                         $compile(template)(scope);
-                        container.html(null).append(template);
+                        container.html(template);
                     });
 
                     /*

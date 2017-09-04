@@ -13,7 +13,7 @@ define([], function (app) {
         },
         {
             module: 'colaborador',
-            view: 'manterColaborador',
+            view: 'manter',
             text: 'Cadastrar colaborador',
             controller: 'manterController',
             state: {
@@ -24,7 +24,7 @@ define([], function (app) {
         },
         {
             module: 'colaborador',
-            view: 'manterColaborador',
+            view: 'manter',
             text: 'Alterar colaborador',
             controller: 'manterController',
             state: {

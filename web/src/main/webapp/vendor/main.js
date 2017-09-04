@@ -11,6 +11,7 @@ requirejs.config({
     paths: {
         'jQuery': ['../vendor/jquery/jquery' + sufixo],
         'angular': ['../vendor/angularjs/angular' + sufixo],
+        'angularSanitize': ['../vendor/angularjs/angular-sanitize' + sufixo],
         'angularUiBootstrap': ['../vendor/angular-ui-bootstrap/ui-bootstrap-tpls' + sufixo],
         'restangular': ['../vendor/restangular/restangular'],
         'underscore': ['../vendor/underscore/underscore' + sufixo],
@@ -25,7 +26,11 @@ requirejs.config({
         'jQueryNotyThemesDefault': ['../vendor/jquery-noty/themes/default'],
         'controllers' : ['../vendor/arquitetura/controladores'],
         'utils' : ['../vendor/arquitetura/utils'],
-        'pages':['../app/pages']
+        'pages':['../app/pages'],
+        'ngtagsinput':['../vendor/tagsinput/ng-tags-input'+sufixo],
+        'ngMap':['../vendor/angular-maps/ng-map'+sufixo],
+        async: '../vendor/requirejs/async',
+        'angularNgTable':['../vendor/angular-ng-tables/ng-table' + sufixo],
 
 
     },
@@ -33,12 +38,15 @@ requirejs.config({
         'angular': {
             deps: ['jQuery'],
             exports: 'angular'
+        },'angularSanitize': {
+            deps: ['angular'],
+            exports: 'angularSanitize'
         },
         'angularUiBootstrap': {
             deps: ['angular'],
             exports: 'angularUiBootstrap'
         }, 'restangular': {
-            deps: ['angular', 'lodash'],
+            deps: ['angular','underscore'],
             exports: 'restangular'
         },
         'underscore': {
@@ -49,6 +57,12 @@ requirejs.config({
         'angularUiRouter': {
             deps: ['angular'],
             exports: 'angularUiRouter'
+        },'ngtagsinput': {
+            deps: ['angular'],
+            exports: 'ngtagsinput'
+        },'ngMap': {
+            deps: ['angular'],
+            exports: 'ngMap'
         },
         'jQueryNoty': {
             deps: ['jQuery'],
@@ -62,6 +76,10 @@ requirejs.config({
             deps: ['jQueryNoty'],
             exports: 'jQueryNotyThemesDefault'
         },
+        'angularNgTable': {
+            deps: ['angular'],
+            exports: 'angularNgTable'
+        }
 
     }
     , priority: ["angular"]

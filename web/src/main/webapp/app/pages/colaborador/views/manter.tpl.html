@@ -1,0 +1,106 @@
+<div class="jumbotron back-white" ui-view>
+    <form name="formulario" ng-submit="salvarColaborador()">
+
+        <div class="container topup text-right">
+            <button type="submit"
+                    class="btn btn-success"
+                    title="Salvar">
+                <i class="font15px fa fa-floppy-o"></i> Salvar
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+
+            </div>
+            <div class="col">
+                <div class="form-group has-error has-feedback">
+                    <input type="text" class="form-control" id="nome" ng-required="true" ng-model="colaborador.nome"
+                           placeholder="Insira o nome">
+                </div>
+                <div class="form-group has-feedback">
+                    <select class="form-control" id="cargo" ng-required="true" ng-model="colaborador.cargo"
+                            placeholder="Escolha o cargo"
+                            ng-options="tc as tc.nome for tc in cargos track by tc.id"></select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="unidade" ng-model="colaborador.unidade"
+                            placeholder="Escolha a unidade"
+                            ng-options="tc as tc.nome for tc in unidades track by tc.id"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <textarea class="form-control" ng-model="colaborador.resumo"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h1>Competencias</h1>
+        </div>
+        <div class="row">
+            <div class="col">
+                <tags-input class="form-control" ng-model="tags" placeholder="Adicionar">
+                    <auto-complete ng-model="colaborador.competencias" min-length="2" max-results-to-show="10"
+                                   debounce-delay="200"
+                                   source="loadCompetencias($query)"></auto-complete>
+                </tags-input>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <h1>Contatos</h1>
+            </div>
+            <div class="col text-right">
+                <button type="button" ng-click="novoContato()"
+                        class="btn btn-success"
+                        title="Novo">
+                    <i class="font15px fa fa-plus"></i> Novo
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <tr ng-repeat="contato in colaborador.contatos">
+                        <td></td>
+                        <td><select ng-model="contato.tipoContato" class="form-control"
+                                    ng-options="tc as tc.nome for tc in tiposContatos track by tc.id"></select></td>
+                        <td><input ng-model="contato.nome" class="form-control"/></td>
+                        <td class="text-right">
+                            <button type="button" ng-click=""
+                                    class="btn btn-danger"
+                                    title="Excluir">
+                                <i class="fa fa-minus-circle"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div map-lazy-load="https://maps.google.com/maps/api/js?key={{googlekey}}&libraries=places">
+            <div class="row">
+                <div class="col">
+                    <label>Endereço</label>
+                    <input places-auto-complete size=80 class="form-control"
+                           ng-model="colaborador.endereco"
+                           on-place-changed="enderecoMudou()"/>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-lg">
+                    <ng-map>
+                        <marker center="{{colaborador.endereco}}"></marker>
+                    </ng-map>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

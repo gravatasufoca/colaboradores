@@ -6,26 +6,44 @@ define(['msAppJs'], function (app) {
         '$timeout',
         'colaboradorService',
         '$notifyService',
-        "$state",
+        "$state", "NgTableParams", "$q",
         function ($scope,
                   $rootScope,
                   $timeout,
                   colaboradorService,
                   $notifyService,
-                  $state) {
+                  $state, NgTableParams, $q) {
 
 
-            /**
-             * Dados do login e senha
-             */
-            $scope.formLogin = {
-                email: null,
-                password: null
-            };
+            $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
 
-            $scope.formLogin.email = "rodrigo.neves@ctis.com.br";
-            $scope.formLogin.password = "rodrigo123";
+            });
 
+            $scope.pesquisa={}
+
+            $scope.consultar=function () {
+                if(window.geral.isEmpty($scope.pesquisa.criterio)){
+                    $scope.showMsg('E', "Crit\u00E9rio de pesquisa n\u00E3o informado");
+                }else{
+                    $scope.tabela.reload();
+                }
+            }
+
+            $scope.tabela = new NgTableParams({count:10}, {
+                getData: function (params) {
+                    $notifyService.loading();
+                    return colaboradorService.pesquisar($scope.pesquisa.criterio).then(function (resultado) {
+                        console.info("rsulado",resultado);
+                        params.total(resultado.resultado.length);
+                        $notifyService.close();
+                        return resultado.resultado;
+                    });
+                },
+                counts: [], // hide page counts control
+                total: 1,  // value less than count hide pagination
+            });
+
+            // $scope.tabela.reload();
 
 
         }]);
