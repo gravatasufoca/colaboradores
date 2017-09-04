@@ -1,20 +1,16 @@
 package com.gravatasufoca.model;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
+import javax.xml.bind.annotation.*;
 
 /**
  * criado por bruno em 30/08/17.
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Table(name = "tb_contato")
-public class Contato extends EntidadeBasica{
+public class Contato extends EntidadeBasica {
 
     private Integer id;
     private TipoContato tipoContato;
@@ -24,7 +20,7 @@ public class Contato extends EntidadeBasica{
     @Override
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_contato",unique = true,nullable = false)
+    @Column(name = "id_contato", unique = true, nullable = false)
     @XmlElement
     public Integer getId() {
         return id;
@@ -35,7 +31,7 @@ public class Contato extends EntidadeBasica{
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "co_tipocontato",nullable = false)
+    @JoinColumn(name = "co_tipocontato", nullable = false)
     @XmlElement
     public TipoContato getTipoContato() {
         return tipoContato;
@@ -45,7 +41,7 @@ public class Contato extends EntidadeBasica{
         this.tipoContato = tipoContato;
     }
 
-    @Column(nullable = false,length = 250)
+    @Column(nullable = false, length = 250)
     @XmlElement
     public String getContato() {
         return contato;
@@ -56,6 +52,7 @@ public class Contato extends EntidadeBasica{
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @XmlTransient
     public Colaborador getColaborador() {
         return colaborador;
     }

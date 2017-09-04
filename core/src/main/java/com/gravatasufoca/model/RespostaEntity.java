@@ -2,7 +2,7 @@ package com.gravatasufoca.model;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 
 /**
  * criado por bruno em 03/09/17.
@@ -13,7 +13,7 @@ public class RespostaEntity implements Serializable {
 
     private static final long serialVersionUID = 4313161695002722794L;
 
-    private List<String> mensagens;
+    private Map<String,String> mensagens;
     private Object resultado;
 
 
@@ -22,7 +22,7 @@ public class RespostaEntity implements Serializable {
 
     @XmlElementWrapper(name = "mensagens")
     @XmlElement(name = "mensagem")
-    public List<String> getMensagens() {
+    public Map<String, String> getMensagens() {
         return mensagens;
     }
 
@@ -39,7 +39,7 @@ public class RespostaEntity implements Serializable {
             return respostaEntity;
         }
 
-        public RespostaEntityBuilder setMensagens(List<String> mensagens){
+        public RespostaEntityBuilder setMensagens(Map<String, String> mensagens){
             respostaEntity.mensagens=mensagens;
             return this;
         }

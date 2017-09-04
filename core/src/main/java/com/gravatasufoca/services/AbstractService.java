@@ -26,6 +26,13 @@ public abstract class AbstractService<E extends EntidadeBasica> implements Seria
 
     protected abstract Repositorio<E> getRepositorio();
 
+    public Map<String, String> salvar(EntidadeBasica entidade) {
+        if(validarObrigatorios((E) entidade)){
+            inserir((E) entidade);
+        }
+        return erros;
+    }
+
     protected void inserir(E entidade) {
         if (getRepositorio() != null) {
             getRepositorio().inserir(entidade);
@@ -115,4 +122,7 @@ public abstract class AbstractService<E extends EntidadeBasica> implements Seria
         return false;
     }
 
+    public Map<String, String> getErros() {
+        return erros;
+    }
 }

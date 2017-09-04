@@ -1,25 +1,31 @@
 package com.gravatasufoca.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * criado por bruno em 30/08/17.
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Table(name = "tb_tipo_competencia")
-public class TipoCompetencia extends EntidadeNomeID{
+public class TipoCompetencia extends EntidadeNomeID {
 
     @Override
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_tipocompetencia",unique = true,nullable = false)
+    @Column(name = "id_tipocompetencia", unique = true, nullable = false)
+    @XmlElement
     public Integer getId() {
         return id;
     }
 
     @Override
-    @Column(nullable = false,length = 250)
+    @XmlElement
     public String getNome() {
         return nome;
     }

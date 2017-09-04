@@ -14,7 +14,6 @@ import java.util.Map;
  */
 public class ColaboradorService extends AbstractService<Colaborador> implements IService{
 
-//    private RepositorioColaborador repositorio = new RepositorioColaboradorImpl();
     @Inject
     private RepositorioColaborador repositorio;
 
@@ -28,10 +27,7 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
 
     @Override
     public Map<String, String> salvar(EntidadeBasica entidade) {
-        if(validarObrigatorios((Colaborador) entidade)){
-            inserir((Colaborador) entidade);
-        }
-        return erros;
+        return super.salvar(entidade);
     }
 
     public List<Colaborador> consultar(String nome) {

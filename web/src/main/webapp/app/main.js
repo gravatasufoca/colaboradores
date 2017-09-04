@@ -1,5 +1,5 @@
 var appConfig = {
-    appContextRoot:"colaboradores"
+    appContextRoot:"colaboradores-web"
 };
 
 

@@ -73,8 +73,8 @@
                 <hibernate.mostrarSql>true</hibernate.mostrarSql>
                 <hibernate.datasource>testecolaborador</hibernate.datasource>
                 <hibernate.schema>testecolaborador</hibernate.schema>
-                <!--<hibernate.conexao>jdbc:mysql://localhost:3305/testecolaborador</hibernate.conexao>-->
-                <hibernate.conexao>jdbc:mysql://192.168.1.144:3306/testecolaborador</hibernate.conexao>
+                <hibernate.conexao>jdbc:mysql://localhost:3305/testecolaborador</hibernate.conexao>
+                <!--<hibernate.conexao>jdbc:mysql://192.168.1.144:3306/testecolaborador</hibernate.conexao>-->
 
             </properties>
         </profile>

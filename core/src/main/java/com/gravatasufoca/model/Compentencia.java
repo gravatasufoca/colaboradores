@@ -5,13 +5,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 
 /**
  * criado por bruno em 30/08/17.
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Table(name = "tb_competencia")
 public class Compentencia extends EntidadeNomeID{
@@ -20,8 +19,6 @@ public class Compentencia extends EntidadeNomeID{
     private Colaborador colaborador;
 
     @Override
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_competencia",unique = true,nullable = false)
     @XmlElement
     public Integer getId() {
@@ -29,7 +26,6 @@ public class Compentencia extends EntidadeNomeID{
     }
 
     @Override
-    @Column(nullable = false,length = 250)
     @XmlElement
     public String getNome() {
         return nome;

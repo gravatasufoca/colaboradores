@@ -33,7 +33,6 @@ define(['msAppJs'], function (app) {
                 getData: function (params) {
                     $notifyService.loading();
                     return colaboradorService.pesquisar($scope.pesquisa.criterio).then(function (resultado) {
-                        console.info("rsulado",resultado);
                         params.total(resultado.resultado.length);
                         $notifyService.close();
                         return resultado.resultado;

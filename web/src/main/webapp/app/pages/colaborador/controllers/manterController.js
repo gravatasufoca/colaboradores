@@ -27,7 +27,7 @@ require(['msAppJs',
                   $scope.tiposContatos = colaboradorService.recuperarTipoContatos();
                   $scope.cargos = colaboradorService.recuperarCargos();
                   $scope.unidades = colaboradorService.recuperarUnidades();
-                  competencias=colaboradorService.recuperarCompetencias();
+                  tipoCompetencias=colaboradorService.recuperarTiposCompetencias()
                   console.info($scope.tiposContatos)
 
               });
@@ -47,14 +47,14 @@ require(['msAppJs',
                 contatos: [],
             };
 
-            var competencias=[];
+            var tipoCompetencias=[];
 
-            $scope.tags = [];
+            $scope.competencias = [];
             $scope.googlekey = "AIzaSyANNPnS32ki7cbp5JbfEPlWG-f9slrQMTQ";
 
 
             $scope.loadCompetencias = function (query) {
-                return competencias;
+                return tipoCompetencias;
             }
 
             $scope.enderecoMudou = function () {
@@ -78,6 +78,11 @@ require(['msAppJs',
             
             $scope.salvarColaborador=function () {
                if(validaObrigatorios()){
+
+                   if(!window.geral.isEmpty($scope.competencias)){
+                       $scope.colaborador.competencias=$scope.competencias;
+                   }
+
                    colaboradorService.salvar($scope.colaborador) .then(function (data) {
                        $notifyService.close();
                        $scope.showMsg('S', data.mensagens[0].texto);

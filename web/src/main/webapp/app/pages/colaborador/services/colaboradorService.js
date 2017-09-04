@@ -14,7 +14,7 @@ define(['msAppJs'],
                       cargo: {id:2,nome:"Arquiteto"},
                       unidade: {id:2,nome:"F\u00E1brica"},
                       competencias: [{id:1,nome:"jQuery"},{id:2,nome:"Java"}],
-                      contatos: [{id:1,tipoContato:{id:1,nome:"Celular"},nome:"6188888888"},{id:1,tipoContato:{id:1,nome:"E-mail"},nome:"bruno@teste.com.br"}],
+                      contatos: [{id:1,tipoContato:{id:1,nome:"Celular"},contato:"6188888888"},{id:1,tipoContato:{id:1,nome:"E-mail"},contato:"bruno@teste.com.br"}],
                   },{
                       id: 2,
                       nome: "Gleice",
@@ -23,12 +23,12 @@ define(['msAppJs'],
                       cargo: {id:2,nome:"Arquiteto"},
                       unidade: {id:2,nome:"F\u00E1brica"},
                       competencias: [{id:1,nome:"jQuery"},{id:2,nome:"Java"}],
-                      contatos: [{id:1,tipoContato:{id:1,nome:"Celular"},nome:"6188888888"},{id:1,tipoContato:{id:1,nome:"E-mail"},nome:"bruno@teste.com.br"}],
+                      contatos: [{id:1,tipoContato:{id:1,nome:"Celular"},contato:"6188888888"},{id:1,tipoContato:{id:1,nome:"E-mail"},contato:"bruno@teste.com.br"}],
                   }],
                     tiposContatos:[{id:1,nome:"Celular"},{id:2,nome:"E-mail"}],
                     cargos:[{id:1,nome:"Desenvolvedor"},{id:2,nome:"Arquiteto"}],
                     unidades:[{id:1,nome:"RH"},{id:2,nome:"F\u00E1brica"}],
-                    competencias: [{"text": "jQuery"}, {"text": "Java"}, {"text": "Spring"}, {"text": "JPA"}]
+                    tipoCompetencias: [{id:1,nome:"JQuery"},{id:2,nome:"Java"}]
                 };
 
                 var salvar=function (colaborador) {
@@ -57,8 +57,8 @@ define(['msAppJs'],
                     return mock.unidades;
                 };
 
-                var recuperarCompetencias=function () {
-                    return mock.competencias;
+                var recuperarTiposCompetencias=function () {
+                    return resourceRest.colaboradores.one("tipoCompetencias").getList();
                 };
 
                 return {
@@ -68,7 +68,7 @@ define(['msAppJs'],
                     recuperarTipoContatos:recuperarTipoContatos,
                     recuperarCargos:recuperarCargos,
                     recuperarUnidades:recuperarUnidades,
-                    recuperarCompetencias:recuperarCompetencias,
+                    recuperarTiposCompetencias:recuperarTiposCompetencias,
                     pesquisar:pesquisar
                 };
 

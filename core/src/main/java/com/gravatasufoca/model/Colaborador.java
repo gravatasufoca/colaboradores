@@ -8,7 +8,7 @@ import java.util.List;
  * criado por bruno em 30/08/17.
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Table(name = "tb_colaborador")
 public class Colaborador extends EntidadeBasica {
