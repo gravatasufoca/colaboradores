@@ -2,7 +2,6 @@ package com.gravatasufoca.controller;
 
 import com.gravatasufoca.model.Colaborador;
 import com.gravatasufoca.services.ColaboradorService;
-import com.gravatasufoca.services.TipoCompetenciaService;
 import com.sun.istack.internal.Nullable;
 
 import javax.enterprise.context.RequestScoped;
@@ -20,8 +19,6 @@ public class ColaboradorController extends ControllerHelper {
 
     @Inject
     private ColaboradorService colaboradorService;
-    @Inject
-    private TipoCompetenciaService tipoCompetenciaService;
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -38,11 +35,6 @@ public class ColaboradorController extends ControllerHelper {
         return criaMensagemResposta(colaboradorService.getErros(), colaboradorService.consultar(nome));
     }
 
-    @GET()
-    @Path(value = "tipoCompetencias")
-    @Produces(value = MediaType.APPLICATION_JSON)
-    public Response listarTiposCompetencias() {
-        return criaMensagemResposta(tipoCompetenciaService.getErros(), tipoCompetenciaService.listar());
-    }
+
 
 }

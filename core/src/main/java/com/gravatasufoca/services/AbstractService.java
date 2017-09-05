@@ -3,6 +3,7 @@ package com.gravatasufoca.services;
 import com.gravatasufoca.model.EntidadeBasica;
 import com.gravatasufoca.repositorios.Repositorio;
 
+import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,6 +18,7 @@ import java.util.Map;
 /**
  * criado por bruno em 30/08/17.
  */
+@Stateless
 public abstract class AbstractService<E extends EntidadeBasica> implements Serializable {
 
     private static final long serialVersionUID = 8355454104338297239L;

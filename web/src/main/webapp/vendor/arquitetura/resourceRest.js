@@ -24,6 +24,7 @@ define(['msAppJs'], function (app) {
 
                 return {
                     colaboradores: Restangular.all(appConfig.appContextRoot + "/api/colaborador"),
+                    apoio: Restangular.all(appConfig.appContextRoot + "/api/apoio"),
 
                 };
             }

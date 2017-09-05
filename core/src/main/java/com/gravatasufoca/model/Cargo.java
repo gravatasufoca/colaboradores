@@ -1,5 +1,6 @@
 package com.gravatasufoca.model;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -15,10 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "tb_cargo")
+@AttributeOverride(name = "id",column = @Column(name = "id_cargo",nullable = false,unique = true))
 public class Cargo extends EntidadeNomeID {
 
     @Override
-    @Column(name = "id_cargo",unique = true,nullable = false)
     @XmlElement
     public Integer getId() {
         return id;

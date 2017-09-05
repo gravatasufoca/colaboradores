@@ -2,6 +2,7 @@ package com.gravatasufoca.repositorios;
 
 import org.hibernate.criterion.Order;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @param <E>
  *            Tipo da entidade.
  */
+@Transactional()
 public interface Repositorio<E> {
 
 	/**

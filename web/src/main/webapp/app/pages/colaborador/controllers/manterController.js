@@ -6,6 +6,7 @@ require(['msAppJs',
         '$rootScope',
         '$timeout',
         'colaboradorService',
+        'apoioService',
         '$notifyService',
         "NgMap",
         "$stateParams",
@@ -13,22 +14,28 @@ require(['msAppJs',
                   $rootScope,
                   $timeout,
                   colaboradorService,
+                  apoioService,
                   $notifyService,
                   NgMap,
                   $stateParams) {
-
-
 
 
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
                 if ($stateParams.id) {
                       colaboradorService.recuperarColaborador($stateParams.id);
                   }
-                  $scope.tiposContatos = colaboradorService.recuperarTipoContatos();
-                  $scope.cargos = colaboradorService.recuperarCargos();
-                  $scope.unidades = colaboradorService.recuperarUnidades();
-                  tipoCompetencias=colaboradorService.recuperarTiposCompetencias()
-                  console.info($scope.tiposContatos)
+                  apoioService.recuperarCargos().then(function (resultado) {
+                      $scope.cargos=resultado.resultado;
+                  });
+                  apoioService.recuperarUnidades().then(function (resultado) {
+                      $scope.unidades=resultado.resultado;
+                  });
+                  apoioService.recuperarTiposCompetencias().then(function (resultado) {
+                      tipoCompetencias=resultado.resultado;
+                  });
+                  apoioService.recuperarTiposContato().then(function (resultado) {
+                      $scope.tiposContatos=resultado.resultado;
+                  });
 
               });
 
@@ -79,10 +86,7 @@ require(['msAppJs',
             $scope.salvarColaborador=function () {
                if(validaObrigatorios()){
 
-                   if(!window.geral.isEmpty($scope.competencias)){
-                       $scope.colaborador.competencias=$scope.competencias;
-                   }
-
+                    fixCompetencias();
                    colaboradorService.salvar($scope.colaborador) .then(function (data) {
                        $notifyService.close();
                        $scope.showMsg('S', data.mensagens[0].texto);
@@ -92,6 +96,19 @@ require(['msAppJs',
                        $scope.showMsg('E', e.data.mensagens[0].texto);
                    });
                }
+            };
+
+            var fixCompetencias=function () {
+                $scope.colaborador.competencias=[];
+                if(!window.geral.isEmpty($scope.competencias)){
+                    angular.forEach($scope.competencias,function (value,key) {
+                      $scope.colaborador.competencias.push({
+                          id:null,
+                          tipoCompetencia:value,
+                          colaborador:null
+                      });
+                    });
+                }
             }
 
             var validaObrigatorios=function () {

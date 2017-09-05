@@ -13,26 +13,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Table(name = "tb_competencia")
-public class Compentencia extends EntidadeNomeID{
+public class Compentencia extends EntidadeBasica{
 
+    private Integer id;
     private TipoCompetencia tipoCompetencia;
     private Colaborador colaborador;
 
     @Override
-    @Column(name = "id_competencia",unique = true,nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_competencia",nullable = false,unique = true)
     @XmlElement
     public Integer getId() {
         return id;
     }
 
-    @Override
-    @XmlElement
-    public String getNome() {
-        return nome;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "co_tipocompetencia",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "co_tipocompetencia", nullable = false)
     @XmlElement
     public TipoCompetencia getTipoCompetencia() {
         return tipoCompetencia;
