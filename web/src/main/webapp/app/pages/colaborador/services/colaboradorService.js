@@ -14,8 +14,8 @@ define(['msAppJs'],
                     return resourceRest.colaboradores.one("id",id).get();
                 };
 
-                var pesquisar=function (filtro) {
-                    return resourceRest.colaboradores.one("consulta",filtro).getList();
+                var pesquisar=function (pagina,filtro) {
+                    return resourceRest.colaboradores.one("pagina",pagina).one("consulta",filtro==null?"null":filtro).getList();
                 }
 
 

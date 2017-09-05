@@ -1,5 +1,6 @@
 package com.gravatasufoca.services;
 
+import com.gravatasufoca.model.Colaborador;
 import com.gravatasufoca.model.Compentencia;
 import com.gravatasufoca.repositorios.Repositorio;
 import com.gravatasufoca.repositorios.RepositorioCompetencia;
@@ -23,5 +24,7 @@ public class CompetenciaService extends AbstractService<Compentencia> {
         return repositorio;
     }
 
-
+    public void excluir(Colaborador colaborador){
+        repositorio.excluir(colaborador);
+    }
 }

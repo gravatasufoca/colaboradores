@@ -2,13 +2,13 @@ package com.gravatasufoca.controller;
 
 import com.gravatasufoca.model.Colaborador;
 import com.gravatasufoca.services.ColaboradorService;
-import com.sun.istack.internal.Nullable;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.Provider;
 
 /**
  * criado por bruno em 30/08/17.
@@ -29,12 +29,10 @@ public class ColaboradorController extends ControllerHelper {
     }
 
     @GET()
-    @Path(value = "consulta")
+    @Path(value = "/pagina/{pagina}/consulta/{nome}")
     @Produces(value = MediaType.APPLICATION_JSON)
-    public Response consultar(@Nullable String nome) {
-        return criaMensagemResposta(colaboradorService.getErros(), colaboradorService.consultar(nome));
+    public Response consultar(@PathParam("nome") String nome, @PathParam("pagina") Integer pagina) {
+        return criaMensagemResposta(colaboradorService.getErros(),"null".equalsIgnoreCase(nome)?colaboradorService.listar(pagina): colaboradorService.consultar(nome));
     }
-
-
 
 }

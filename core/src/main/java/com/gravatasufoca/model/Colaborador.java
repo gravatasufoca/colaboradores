@@ -2,7 +2,7 @@ package com.gravatasufoca.model;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * criado por bruno em 30/08/17.
@@ -22,20 +22,20 @@ public class Colaborador extends EntidadeBasica {
     private String resumo;
     @XmlElement
     private String endereco;
-    @XmlElement
+    @XmlAttribute
     private Cargo cargo;
     @XmlElement
     private Unidade unidade;
     @XmlElementWrapper()
     @XmlElement(name="competencia")
-    private List<Compentencia> competencias;
+    private Set<Compentencia> competencias;
     @XmlElementWrapper()
     @XmlElement(name="contatos")
-    private List<Contato> contatos;
+    private Set<Contato> contatos;
 
     @Override
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_colaborador",unique = true,nullable = false)
     public Integer getId() {
         return id;
@@ -92,20 +92,20 @@ public class Colaborador extends EntidadeBasica {
     }
 
     @OneToMany(mappedBy ="colaborador",fetch = FetchType.LAZY)
-    public List<Compentencia> getCompetencias() {
+    public Set<Compentencia> getCompetencias() {
         return competencias;
     }
 
-    public void setCompetencias(List<Compentencia> competencias) {
+    public void setCompetencias(Set<Compentencia> competencias) {
         this.competencias = competencias;
     }
 
     @OneToMany(mappedBy ="colaborador",fetch = FetchType.LAZY)
-    public List<Contato> getContatos() {
+    public Set<Contato> getContatos() {
         return contatos;
     }
 
-    public void setContatos(List<Contato> contatos) {
+    public void setContatos(Set<Contato> contatos) {
         this.contatos = contatos;
     }
 

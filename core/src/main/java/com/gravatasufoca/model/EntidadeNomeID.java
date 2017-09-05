@@ -9,7 +9,7 @@ import javax.persistence.*;
 public abstract class EntidadeNomeID extends EntidadeBasica{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     @Column(nullable = false, length = 250)
     protected String nome;

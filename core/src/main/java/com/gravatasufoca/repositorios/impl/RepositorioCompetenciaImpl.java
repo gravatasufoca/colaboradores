@@ -1,5 +1,6 @@
 package com.gravatasufoca.repositorios.impl;
 
+import com.gravatasufoca.model.Colaborador;
 import com.gravatasufoca.model.Compentencia;
 import com.gravatasufoca.repositorios.RepositorioCompetencia;
 import com.gravatasufoca.repositorios.RepositorioGenerico;
@@ -9,4 +10,10 @@ import com.gravatasufoca.repositorios.RepositorioGenerico;
  */
 public class RepositorioCompetenciaImpl extends RepositorioGenerico<Compentencia> implements RepositorioCompetencia{
 
+    @Override
+    public void excluir(Colaborador colaborador) {
+        if(colaborador!=null && colaborador.getId()!=null) {
+            entityManager.createQuery("delete from Compentencia where colaborador=:colaborador");
+        }
+    }
 }

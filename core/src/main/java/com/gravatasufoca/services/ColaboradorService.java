@@ -41,15 +41,15 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
         Colaborador colaborador= (Colaborador) entidade;
         if(validarObrigatorios(colaborador)){
             insereTiposCompetencia(colaborador);
+            inserir(colaborador);
             inserirContatos(colaborador);
             inserirCompetencias(colaborador);
-            inserir(colaborador);
         }
         return erros;
     }
 
     private void inserirCompetencias(Colaborador colaborador) {
-        //TODO: EXCLUIR OS ANTIGOS ANTES - FAZER COM BULK DELETE
+        competenciaService.excluir(colaborador);
         if (colaborador.getCompetencias() != null) {
             for (Compentencia compentencia : colaborador.getCompetencias()) {
                 competenciaService.inserir(compentencia);
@@ -59,12 +59,11 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
 
     private void inserirContatos(Colaborador colaborador) {
         if (colaborador.getContatos() != null) {
-
             for (Contato contato : colaborador.getContatos()) {
+                contato.setColaborador(colaborador);
                 contatoService.inserir(contato);
             }
         }
-
     }
 
     //TODO: mudar para bulk insertion
@@ -72,6 +71,7 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
         if(colaborador.getCompetencias()!=null) {
             for (Compentencia competencia : colaborador.getCompetencias()) {
                 if (competencia.getTipoCompetencia().getId() == null) {
+                    competencia.setColaborador(colaborador);
                     tipoCompetenciaService.inserir(competencia.getTipoCompetencia());
                 }
             }
@@ -80,5 +80,9 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
 
     public List<Colaborador> consultar(String nome) {
         return repositorio.listarPorNome(nome);
+    }
+
+    public List<Colaborador> listar(Integer pagina){
+        return repositorio.listar(pagina);
     }
 }

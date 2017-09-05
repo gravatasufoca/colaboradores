@@ -37,7 +37,7 @@ public abstract class AbstractService<E extends EntidadeBasica> implements Seria
 
     protected void inserir(E entidade) {
         if (getRepositorio() != null) {
-            getRepositorio().inserir(entidade);
+            getRepositorio().inserirOuAtualizar(entidade);
         }
     }
 

@@ -1,10 +1,7 @@
 package com.gravatasufoca.model;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 
 /**
  * criado por bruno em 30/08/17.
@@ -15,15 +12,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tb_competencia")
 public class Compentencia extends EntidadeBasica{
 
+    @XmlElement
     private Integer id;
+    @XmlElement
     private TipoCompetencia tipoCompetencia;
+    @XmlTransient
     private Colaborador colaborador;
 
     @Override
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_competencia",nullable = false,unique = true)
-    @XmlElement
     public Integer getId() {
         return id;
     }
@@ -32,9 +31,8 @@ public class Compentencia extends EntidadeBasica{
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "co_tipocompetencia", nullable = false)
-    @XmlElement
     public TipoCompetencia getTipoCompetencia() {
         return tipoCompetencia;
     }
@@ -44,6 +42,7 @@ public class Compentencia extends EntidadeBasica{
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @XmlTransient
     public Colaborador getColaborador() {
         return colaborador;
     }

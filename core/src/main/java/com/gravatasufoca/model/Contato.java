@@ -12,16 +12,19 @@ import javax.xml.bind.annotation.*;
 @Table(name = "tb_contato")
 public class Contato extends EntidadeBasica {
 
+    @XmlElement
     private Integer id;
+    @XmlElement
     private TipoContato tipoContato;
+    @XmlElement
     private String contato;
+    @XmlTransient
     private Colaborador colaborador;
 
     @Override
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contato", unique = true, nullable = false)
-    @XmlElement
     public Integer getId() {
         return id;
     }
@@ -30,9 +33,8 @@ public class Contato extends EntidadeBasica {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "co_tipocontato", nullable = false)
-    @XmlElement
     public TipoContato getTipoContato() {
         return tipoContato;
     }
@@ -42,7 +44,6 @@ public class Contato extends EntidadeBasica {
     }
 
     @Column(nullable = false, length = 250)
-    @XmlElement
     public String getContato() {
         return contato;
     }

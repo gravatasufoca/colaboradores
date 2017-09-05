@@ -29,10 +29,13 @@ define(['msAppJs'], function (app) {
                 }
             }
 
-            $scope.tabela = new NgTableParams({count:10}, {
+            $scope.tabela = new NgTableParams({
+                page:1,
+                count:10
+            }, {
                 getData: function (params) {
                     $notifyService.loading();
-                    return colaboradorService.pesquisar($scope.pesquisa.criterio).then(function (resultado) {
+                    return colaboradorService.pesquisar(params.page(),$scope.pesquisa.criterio).then(function (resultado) {
                         params.total(resultado.resultado.length);
                         $notifyService.close();
                         return resultado.resultado;
