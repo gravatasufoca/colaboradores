@@ -2,7 +2,8 @@ package com.gravatasufoca.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.codehaus.jackson.annotate.JsonManagedReference;
-import org.codehaus.jackson.annotate.JsonWriteNullProperties;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -16,13 +17,15 @@ import java.util.Set;
 @Entity
 @Table(name = "tb_colaborador")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-//@AttributeOverride(name = "id",column = @Column(name = "id_colaborador",nullable = false,unique = true))
+@Indexed
 public class Colaborador extends EntidadeBasica {
 
     private static final long serialVersionUID = 2886185930623763037L;
 
     private Integer id;
     @XmlElement
+    @Field(index = Index.TOKENIZED, store = Store.NO)
+    @Analyzer(definition = "defaultanalyzer")
     private String nome;
     @XmlElement
     private String resumo;
@@ -33,16 +36,18 @@ public class Colaborador extends EntidadeBasica {
     @XmlElement
     private Unidade unidade;
     @XmlElementWrapper()
-    @XmlElement(name="competencia")
+    @XmlElement(name = "competencia")
     private Set<Compentencia> competencias;
     @XmlElementWrapper()
-    @XmlElement(name="contatos")
+    @XmlElement(name = "contatos")
     private Set<Contato> contatos;
+
+    private byte[] avatar;
 
     @Override
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_colaborador",nullable = false,unique = true)
+    @Column(name = "id_colaborador", nullable = false, unique = true)
     public Integer getId() {
         return id;
     }
@@ -51,7 +56,7 @@ public class Colaborador extends EntidadeBasica {
         this.id = id;
     }
 
-    @Column(nullable = false,length = 150)
+    @Column(nullable = false, length = 150)
     public String getNome() {
         return nome;
     }
@@ -59,7 +64,8 @@ public class Colaborador extends EntidadeBasica {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    @Column(nullable = true,length = 4000)
+
+    @Column(nullable = true, length = 4000)
     public String getResumo() {
         return resumo;
     }
@@ -68,7 +74,7 @@ public class Colaborador extends EntidadeBasica {
         this.resumo = resumo;
     }
 
-    @Column(nullable = false,length = 500)
+    @Column(nullable = false, length = 500)
     public String getEndereco() {
         return endereco;
     }
@@ -78,7 +84,7 @@ public class Colaborador extends EntidadeBasica {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "co_cargo",referencedColumnName = "id_cargo", nullable = false)
+    @JoinColumn(name = "co_cargo", referencedColumnName = "id_cargo", nullable = false)
     public Cargo getCargo() {
         return cargo;
     }
@@ -88,7 +94,7 @@ public class Colaborador extends EntidadeBasica {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "co_unidade",nullable = true)
+    @JoinColumn(name = "co_unidade", nullable = true)
     public Unidade getUnidade() {
         return unidade;
     }
@@ -97,7 +103,7 @@ public class Colaborador extends EntidadeBasica {
         this.unidade = unidade;
     }
 
-    @OneToMany(mappedBy ="colaborador",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
     public Set<Compentencia> getCompetencias() {
         return competencias;
     }
@@ -106,7 +112,7 @@ public class Colaborador extends EntidadeBasica {
         this.competencias = competencias;
     }
 
-    @OneToMany(mappedBy ="colaborador",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY)
     @JsonManagedReference
     public Set<Contato> getContatos() {
         return contatos;
@@ -116,5 +122,14 @@ public class Colaborador extends EntidadeBasica {
         this.contatos = contatos;
     }
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column
+    public byte[] getAvatar() {
+        return avatar;
+    }
 
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
 }

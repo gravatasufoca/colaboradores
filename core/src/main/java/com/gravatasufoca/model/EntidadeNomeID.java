@@ -1,12 +1,19 @@
 package com.gravatasufoca.model;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * criado por bruno em 30/08/17.
  */
 @MappedSuperclass
-public abstract class EntidadeNomeID extends EntidadeBasica{
+@XmlSeeAlso({
+                Cargo.class, Unidade.class, TipoCompetencia.class, TipoContato.class
+})
+@JsonIgnoreProperties(ignoreUnknown = true)
+public abstract class EntidadeNomeID extends EntidadeBasica {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

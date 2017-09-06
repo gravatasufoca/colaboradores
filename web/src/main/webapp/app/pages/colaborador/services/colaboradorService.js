@@ -1,13 +1,26 @@
 define(['msAppJs'],
     function (app) {
         app.factory("colaboradorService", ['resourceRest',
-            '$rootScope',
+            '$rootScope',"$http",
             function (resourceRest,
-                      $rootScope) {
+                      $rootScope,$http) {
 
 
-                var salvar=function (colaborador) {
-                    return resourceRest.colaboradores.post(colaborador);
+                var salvar=function (colaborador,imagem) {
+                    // return resourceRest.colaboradores.post(colaborador);
+                    return $http({
+                        method: 'POST',
+                        url: "./api/colaborador",
+                        headers: {'Content-Type': undefined},
+                        transformRequest: function (data) {
+                            var formData = new FormData();
+                            formData.append('colaborador', new Blob([JSON.stringify(data.colaborador)], {type: "application/json"}));
+                            formData.append("imagem", data.imagem);
+
+                            return formData;
+                        },
+                        data: {colaborador: colaborador, imagem: imagem}
+                    });
                 }
 
                 var recuperarColaborador=function (id) {

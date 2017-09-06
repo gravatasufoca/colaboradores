@@ -33,6 +33,8 @@ requirejs.config({
         async: '../vendor/requirejs/async',
         'angularNgTable':['../vendor/angular-ng-tables/ng-table' + sufixo],
         'angularConfirm':['../vendor/angular-confirm/angular-confirm'],
+        'ngFileUpload':['../vendor/ng-file-upload/ng-file-upload'+sufixo,'../vendor/ng-file-upload/ng-file-upload-shim'+sufixo],
+        'ngFileUploadShim':['../vendor/ng-file-upload/ng-file-upload-shim'+sufixo],
 
 
     },
@@ -88,6 +90,14 @@ requirejs.config({
         'angularConfirm': {
             deps: ['angular'],
             exports: 'angularConfirm'
+        },
+        'ngFileUpload': {
+            deps: ['angular'],
+            exports: 'ngFileUpload'
+        },
+        'ngFileUploadShim': {
+            deps: ['angular'],
+            exports: 'ngFileUploadShim'
         }
 
     }

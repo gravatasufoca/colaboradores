@@ -1,7 +1,9 @@
 package com.gravatasufoca.controller;
 
 import com.gravatasufoca.model.Colaborador;
+import com.gravatasufoca.model.ColaboradorDTO;
 import com.gravatasufoca.services.ColaboradorService;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -23,16 +25,19 @@ public class ColaboradorController extends ControllerHelper {
     @GET
     @Path("{id}")
     @Produces(value = MediaType.APPLICATION_JSON)
-    public Response recuperarColaborador(@PathParam("id") Integer id){
-        return criaMensagemResposta(colaboradorService.getErros(),colaboradorService.recuperarColaborador(id));
+    public Response recuperarColaborador(@PathParam("id") Integer id) {
+        return criaMensagemResposta(colaboradorService.getErros(), colaboradorService.recuperarColaborador(id));
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(value = MediaType.APPLICATION_JSON)
-    public Response salvar(Colaborador colaborador) {
+    public Response salvar(@MultipartForm ColaboradorDTO colaboradorDTO) {
+        Colaborador colaborador = colaboradorDTO.getColaborador();
+        colaborador.setAvatar(colaboradorDTO.getImagem());
+
         Map<String, String> erros = colaboradorService.salvar(colaborador);
-        if(erros.isEmpty()){
+        if (erros.isEmpty()) {
             return criaMensagemResposta("Salvo com sucesso!", colaboradorService.getErros(), colaborador);
         }
         return criaMensagemResposta(colaboradorService.getErros(), colaborador);
@@ -42,7 +47,7 @@ public class ColaboradorController extends ControllerHelper {
     @Path(value = "/pagina/{pagina}/consulta/{nome}")
     @Produces(value = MediaType.APPLICATION_JSON)
     public Response consultar(@PathParam("nome") String nome, @PathParam("pagina") Integer pagina) {
-        return criaMensagemResposta(colaboradorService.getErros(),"null".equalsIgnoreCase(nome)?colaboradorService.listar(pagina): colaboradorService.consultar(nome));
+        return criaMensagemResposta(colaboradorService.getErros(), "null".equalsIgnoreCase(nome) ? colaboradorService.listar(pagina) : colaboradorService.consultar(nome));
     }
 
 }

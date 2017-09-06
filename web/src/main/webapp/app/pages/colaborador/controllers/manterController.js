@@ -9,7 +9,7 @@ require(['msAppJs',
         'apoioService',
         '$notifyService',
         "NgMap",
-        "$stateParams", "$ngConfirm", "$state",
+        "$stateParams", "$ngConfirm", "$state",'Upload',
         function ($scope,
                   $rootScope,
                   $timeout,
@@ -17,22 +17,23 @@ require(['msAppJs',
                   apoioService,
                   $notifyService,
                   NgMap,
-                  $stateParams, $ngConfirm, $state) {
+                  $stateParams, $ngConfirm, $state,Upload) {
 
 
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
                 if ($stateParams.id) {
                     colaboradorService.recuperarColaborador($stateParams.id).then(function (resultado) {
                         $scope.colaborador = resultado.resultado;
+                        if($scope.colaborador.cargo!=null){
+                            $scope.colaborador.cargo.texto=$scope.colaborador.cargo.nome;
+                        }
+                        if($scope.colaborador.unidade!=null){
+                            $scope.colaborador.unidade.texto=$scope.colaborador.unidade.nome;
+                        }
                         montarCompetencias();
                     });
                 }
-                /*apoioService.recuperarCargos().then(function (resultado) {
-                    $scope.cargos = resultado.resultado;
-                });*/
-                apoioService.recuperarUnidades().then(function (resultado) {
-                    $scope.unidades = resultado.resultado;
-                });
+
                 apoioService.recuperarTiposCompetencias().then(function (resultado) {
                     tipoCompetencias = resultado.resultado;
                 });
@@ -43,6 +44,7 @@ require(['msAppJs',
             });
 
             $scope.tiposContatos = [];
+            $scope.file=[];
             /**
              * Dados do login e senha
              */
@@ -97,7 +99,7 @@ require(['msAppJs',
                 if (validaObrigatorios()) {
 
                     fixCompetencias();
-                    colaboradorService.salvar($scope.colaborador).then(function (data) {
+                    colaboradorService.salvar($scope.colaborador,$scope.file).then(function (data) {
                         $notifyService.close();
                         if (data.mensagemSucesso != null) {
                             $scope.showMsg('S', data.mensagemSucesso);
@@ -169,8 +171,13 @@ require(['msAppJs',
             }
 
 
-            $scope.selecionaCargo=function () {
-
+            $scope.selecionaCargo=function (valor) {
+                if(typeof valor!='string'){
+                    $scope.colaborador.cargo=angular.copy(valor);
+                }else{
+                    $scope.colaborador.cargo={id:null,nome:valor,texto:valor};
+                }
+                delete $scope.colaborador.cargo.texto;
             };
 
             $scope.consultaCargo=function (nomeParcial) {
@@ -190,6 +197,45 @@ require(['msAppJs',
                     return [];
                 }
             }
+
+
+
+            $scope.selecionaUnidade=function (valor) {
+                if(typeof valor!='string'){
+                    $scope.colaborador.unidade=valor;
+                }else{
+                    $scope.colaborador.unidade={id:null,nome:valor,texto:valor};
+                }
+                delete $scope.colaborador.unidade.texto;
+            };
+
+            $scope.consultaUnidade=function (nomeParcial) {
+                if(nomeParcial && nomeParcial !== null){
+                    nomeParcial = nomeParcial.toString();
+                }
+
+                if (nomeParcial !== ''){
+                    return apoioService.recuperarUnidades(nomeParcial)
+                        .then(function (data){
+                            return _.map(data.resultado,function (valor) {
+                                valor.texto=valor.nome;
+                                return valor;
+                            });
+                        });
+                } else {
+                    return [];
+                }
+            }
+
+            $scope.uploadFile=function (file) {
+                $scope.file=file;
+            }
+
+            $scope.$watch("file",function () {
+                if ($scope.file != null) {
+                    console.info($scope.file)
+                }
+            });
 
         }]);
 

@@ -12,7 +12,7 @@ define([
         'angularNgTable',
         'angularUiBootstrap',
         'angularUiBootstrap2',
-        'ngMap', 'angularConfirm'
+        'ngMap', 'angularConfirm','ngFileUpload','ngFileUploadShim'
     ],
     function () {
         'use strict';
@@ -26,7 +26,7 @@ define([
             "ngTagsInput",
             'ngTable',
             'ngMap',
-            'ngSanitize', 'cp.ngConfirm','ui.bootstrap'
+            'ngSanitize', 'cp.ngConfirm','ui.bootstrap','ngFileUpload'
         ]);
 
         app.run(function ($rootScope, routeService) {

@@ -29,6 +29,23 @@
         </dependency>
 
 
+
+        <!-- Resteasy Servlet Container Initializer -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-servlet-initializer</artifactId>
+            <version>3.0.8.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Resteasy Multipart Provider -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-multipart-provider</artifactId>
+            <version>3.0.8.Final</version>
+            <scope>provided</scope>
+        </dependency>
+
+
     </dependencies>
 
 </project>

@@ -25,8 +25,8 @@ public class UnidadeService extends AbstractService<Unidade> {
         return repositorio;
     }
 
-    public List<Unidade> listar() {
-        return repositorio.listar(Order.asc("nome"));
+    public List<Unidade> listar(String nome) {
+        return repositorio.listar(nome);
     }
 
 }

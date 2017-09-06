@@ -5,51 +5,26 @@ define(['msAppJs'], function (app) {
         function($timeout){
 
             function link(scope,element, a){
-                /**
-                 * Completa o nome da Instituicao de Monitoramento a medida em que o usuario vai digitando
-                 */
+
                 scope.completar = scope.consultaFn;
 
-                /***
-                 * Verifica se uma localidade foi selecionada ao perder o foco do campo,
-                 * caso nao tenha sido selecionada da lista, resetar o valor
-                 */
-                scope.verificaSelecao = function () {
-                    $timeout(function () {
-                        if (!scope.valor || !scope.valor.id) {
-                            scope.valor = null;
-                            change();
-                        }
-                    }, 100);
-                };
 
-                /**
-                 * Funcao executada quando um item é selecionado na lista
-                 */
                 scope.selecionar = function ($item, $model, $label, $event) {
                     scope.valor = $item;
                 };
 
 
-                /**
-                 * Transforma de vazio para null
-                 */
-                scope.$watch('valor', function name() {
-                    if (!scope.valor || scope.valor === null || scope.valor === '') {
-                        scope.valor = null;
-                        change();
-                    }
-                });
-
-                /**
-                 * Metodo chamado ao alterar uma localidade
-                 */
                 var change = function () {
                     if (scope.onChangeFn) {
                         scope.onChangeFn(scope.valor);
                     }
                 };
 
+                scope.verificaSelecao=function () {
+                    if (scope.valor != null && (typeof scope.valor == 'string' || scope.valor.id != null)) {
+                        change();
+                    }
+                }
 
 
             }
@@ -66,9 +41,9 @@ define(['msAppJs'], function (app) {
                         '		ng-model="valor" maxlength="250"' +
                         '		placeholder="{{placeHolder}}"  ' +
                         '		typeahead-wait-ms="200"  ' +
-                        '		typeahead-min-length="3"  ' +
+                        '		typeahead-min-length="2"  ' +
                         '		typeahead-editable="true"  ' +
-                        '		typeahead-on-select="verificaSelecao()" ' +
+                        '		ng-blur="verificaSelecao()"  ' +
                         '		uib-typeahead="obj as (obj.texto) for obj in completar($viewValue)"  ' +
                         '		typeahead-on-select="selecionar($item)"  ' +
                         '		class="form-control"> ' +

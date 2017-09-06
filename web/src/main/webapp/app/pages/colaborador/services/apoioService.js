@@ -18,8 +18,8 @@ define(['msAppJs'],
                     return resourceRest.apoio.one("cargos",nome).getList();
                 };
 
-                var recuperarUnidades=function () {
-                    return resourceRest.apoio.one("unidades").getList();
+                var recuperarUnidades=function (nome) {
+                    return resourceRest.apoio.one("unidades",nome).getList();
                 };
 
                 return {

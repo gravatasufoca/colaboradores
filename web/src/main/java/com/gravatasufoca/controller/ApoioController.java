@@ -55,9 +55,9 @@ public class ApoioController extends ControllerHelper {
     }
 
     @GET()
-    @Path(value = "unidades")
+    @Path(value = "unidades/{nome}")
     @Produces(value = MediaType.APPLICATION_JSON)
-    public Response listarUnidades() {
-        return criaMensagemResposta(tipoContatoService.getErros(), unidadeService.listar());
+    public Response listarUnidades(@PathParam("nome")String nome) {
+        return criaMensagemResposta(unidadeService.getErros(), unidadeService.listar(nome));
     }
 }
