@@ -14,8 +14,8 @@ define(['msAppJs'],
                     return resourceRest.apoio.one("tipoContatos").getList();
                 };
 
-                var recuperarCargos=function () {
-                    return resourceRest.apoio.one("cargos").getList();
+                var recuperarCargos=function (nome) {
+                    return resourceRest.apoio.one("cargos",nome).getList();
                 };
 
                 var recuperarUnidades=function () {

@@ -13,7 +13,8 @@ public class RepositorioCompetenciaImpl extends RepositorioGenerico<Compentencia
     @Override
     public void excluir(Colaborador colaborador) {
         if(colaborador!=null && colaborador.getId()!=null) {
-            entityManager.createQuery("delete from Compentencia where colaborador=:colaborador");
+            entityManager.createQuery("delete from Compentencia where colaborador=:colaborador").setParameter("colaborador",colaborador).executeUpdate();
+
         }
     }
 }

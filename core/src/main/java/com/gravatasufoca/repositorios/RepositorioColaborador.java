@@ -10,4 +10,5 @@ import java.util.List;
 public interface RepositorioColaborador extends Repositorio<Colaborador> {
     List<Colaborador> listarPorNome(String nome);
     List<Colaborador> listar(Integer pagina);
+    Colaborador recuperarColaborador(Integer id);
 }

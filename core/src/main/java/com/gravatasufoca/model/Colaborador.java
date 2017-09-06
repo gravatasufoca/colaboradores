@@ -1,5 +1,9 @@
 package com.gravatasufoca.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.codehaus.jackson.annotate.JsonWriteNullProperties;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import java.util.Set;
@@ -11,10 +15,12 @@ import java.util.Set;
 @XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Table(name = "tb_colaborador")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+//@AttributeOverride(name = "id",column = @Column(name = "id_colaborador",nullable = false,unique = true))
 public class Colaborador extends EntidadeBasica {
 
     private static final long serialVersionUID = 2886185930623763037L;
-    @XmlElement
+
     private Integer id;
     @XmlElement
     private String nome;
@@ -36,7 +42,7 @@ public class Colaborador extends EntidadeBasica {
     @Override
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_colaborador",unique = true,nullable = false)
+    @Column(name = "id_colaborador",nullable = false,unique = true)
     public Integer getId() {
         return id;
     }
@@ -101,6 +107,7 @@ public class Colaborador extends EntidadeBasica {
     }
 
     @OneToMany(mappedBy ="colaborador",fetch = FetchType.LAZY)
+    @JsonManagedReference
     public Set<Contato> getContatos() {
         return contatos;
     }

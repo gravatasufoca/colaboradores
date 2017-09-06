@@ -1,7 +1,12 @@
 package com.gravatasufoca.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import javax.persistence.*;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * criado por bruno em 30/08/17.
@@ -10,6 +15,7 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.NONE)
 @Entity
 @Table(name = "tb_contato")
+//@AttributeOverride(name = "id",column = @Column(name = "id_contato",nullable = false,unique = true))
 public class Contato extends EntidadeBasica {
 
     @XmlElement
@@ -18,13 +24,15 @@ public class Contato extends EntidadeBasica {
     private TipoContato tipoContato;
     @XmlElement
     private String contato;
-    @XmlTransient
     private Colaborador colaborador;
+
+    @Transient
+    private boolean excluido;
 
     @Override
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_contato", unique = true, nullable = false)
+    @Column(name = "id_contato",nullable = false,unique = true)
     public Integer getId() {
         return id;
     }
@@ -53,12 +61,21 @@ public class Contato extends EntidadeBasica {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @XmlTransient
+    @JsonBackReference
     public Colaborador getColaborador() {
         return colaborador;
     }
 
     public void setColaborador(Colaborador colaborador) {
         this.colaborador = colaborador;
+    }
+
+    @Transient
+    public boolean isExcluido() {
+        return excluido;
+    }
+
+    public void setExcluido(boolean excluido) {
+        this.excluido = excluido;
     }
 }

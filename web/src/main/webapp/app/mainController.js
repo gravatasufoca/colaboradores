@@ -12,7 +12,6 @@ define(['msAppJs',
     /**
      * Controller da aplicação
      */
-    console.info("mainController.......")
     app.controller('mainController', ['$scope',
         "$timeout",
         '$filter',

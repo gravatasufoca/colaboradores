@@ -10,7 +10,9 @@ define([
         'utils/functions',
         "ngtagsinput",
         'angularNgTable',
-    'ngMap'
+        'angularUiBootstrap',
+        'angularUiBootstrap2',
+        'ngMap', 'angularConfirm'
     ],
     function () {
         'use strict';
@@ -18,14 +20,13 @@ define([
         /*
          * Create the module
          */
-        console.info("app.js...........")
-        var app = angular.module('mApp', ["appController","route",
-             'restangular',
-             'notify',
-             "ngTagsInput",
+        var app = angular.module('mApp', ["appController", "route",
+            'restangular',
+            'notify',
+            "ngTagsInput",
             'ngTable',
             'ngMap',
-            'ngSanitize'
+            'ngSanitize', 'cp.ngConfirm','ui.bootstrap'
         ]);
 
         app.run(function ($rootScope, routeService) {

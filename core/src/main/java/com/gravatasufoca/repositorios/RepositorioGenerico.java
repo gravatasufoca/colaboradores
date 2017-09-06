@@ -1,6 +1,5 @@
 package com.gravatasufoca.repositorios;
 
-import com.gravatasufoca.interfaces.Transacional;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
@@ -67,24 +66,19 @@ public class RepositorioGenerico<E> implements Repositorio<E> {
         return getSession().createCriteria(entityClass).add(Restrictions.like(campo, termo, MatchMode.START)).list();
     }
 
-    @Transacional
     public E atualizar(E entidade) {
         return entityManager.merge(entidade);
     }
-    @Transacional
     public void excluir(E entidade) {
         entityManager.remove(entidade);
     }
-    @Transacional
     public void excluir(Serializable id) {
         E obj = obterPorId(id);
         excluir(obj);
     }
-    @Transacional
     public void inserir(E entidade) {
         entityManager.persist(entidade);
     }
-    @Transacional
     public void inserirOuAtualizar(E entidade) {
         getSession().saveOrUpdate(entidade);
     }

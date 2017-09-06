@@ -1,22 +1,27 @@
 package com.gravatasufoca.model;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import javax.persistence.*;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * criado por bruno em 30/08/17.
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "tb_competencia")
+//@AttributeOverride(name = "id",column = @Column(name = "id_competencia",nullable = false,unique = true))
 public class Compentencia extends EntidadeBasica{
 
     @XmlElement
     private Integer id;
     @XmlElement
     private TipoCompetencia tipoCompetencia;
-    @XmlTransient
     private Colaborador colaborador;
 
     @Override
@@ -41,8 +46,9 @@ public class Compentencia extends EntidadeBasica{
         this.tipoCompetencia = tipoCompetencia;
     }
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @XmlTransient
+    @JoinColumn(name = "id_colaborador",nullable = false)
     public Colaborador getColaborador() {
         return colaborador;
     }

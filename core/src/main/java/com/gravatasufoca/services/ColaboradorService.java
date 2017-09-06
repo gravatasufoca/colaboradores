@@ -52,6 +52,7 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
         competenciaService.excluir(colaborador);
         if (colaborador.getCompetencias() != null) {
             for (Compentencia compentencia : colaborador.getCompetencias()) {
+                compentencia.setColaborador(colaborador);
                 competenciaService.inserir(compentencia);
             }
         }
@@ -61,7 +62,11 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
         if (colaborador.getContatos() != null) {
             for (Contato contato : colaborador.getContatos()) {
                 contato.setColaborador(colaborador);
-                contatoService.inserir(contato);
+                if(contato.isExcluido()) {
+                    contatoService.excluir(contato);
+                }else{
+                    contatoService.inserir(contato);
+                }
             }
         }
     }
@@ -84,5 +89,9 @@ public class ColaboradorService extends AbstractService<Colaborador> implements 
 
     public List<Colaborador> listar(Integer pagina){
         return repositorio.listar(pagina);
+    }
+
+    public Colaborador recuperarColaborador(Integer id) {
+        return repositorio.recuperarColaborador(id);
     }
 }

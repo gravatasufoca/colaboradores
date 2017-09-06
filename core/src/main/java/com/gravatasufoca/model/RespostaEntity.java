@@ -13,6 +13,7 @@ public class RespostaEntity implements Serializable {
 
     private static final long serialVersionUID = 4313161695002722794L;
 
+    private String mensagemSucesso;
     private Map<String,String> mensagens;
     private Object resultado;
 
@@ -31,6 +32,10 @@ public class RespostaEntity implements Serializable {
         return resultado;
     }
 
+    @XmlElement
+    public String getMensagemSucesso() {
+        return mensagemSucesso;
+    }
 
     public static class RespostaEntityBuilder{
         private RespostaEntity respostaEntity=new RespostaEntity();
@@ -46,6 +51,11 @@ public class RespostaEntity implements Serializable {
 
         public RespostaEntityBuilder setObjeto(Object objeto){
             respostaEntity.resultado=objeto;
+            return this;
+        }
+
+        public RespostaEntityBuilder setMensagemSucesso(String objeto){
+            respostaEntity.mensagemSucesso=objeto;
             return this;
         }
     }

@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.Provider;
+import java.util.Map;
 
 /**
  * criado por bruno em 30/08/17.
@@ -20,11 +20,21 @@ public class ColaboradorController extends ControllerHelper {
     @Inject
     private ColaboradorService colaboradorService;
 
+    @GET
+    @Path("{id}")
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Response recuperarColaborador(@PathParam("id") Integer id){
+        return criaMensagemResposta(colaboradorService.getErros(),colaboradorService.recuperarColaborador(id));
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(value = MediaType.APPLICATION_JSON)
     public Response salvar(Colaborador colaborador) {
-        colaboradorService.salvar(colaborador);
+        Map<String, String> erros = colaboradorService.salvar(colaborador);
+        if(erros.isEmpty()){
+            return criaMensagemResposta("Salvo com sucesso!", colaboradorService.getErros(), colaborador);
+        }
         return criaMensagemResposta(colaboradorService.getErros(), colaborador);
     }
 

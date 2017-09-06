@@ -12,7 +12,8 @@ requirejs.config({
         'jQuery': ['../vendor/jquery/jquery' + sufixo],
         'angular': ['../vendor/angularjs/angular' + sufixo],
         'angularSanitize': ['../vendor/angularjs/angular-sanitize' + sufixo],
-        'angularUiBootstrap': ['../vendor/angular-ui-bootstrap/ui-bootstrap-tpls' + sufixo],
+        'angularUiBootstrap': ['../vendor/angular-ui-bootstrap/ui-bootstrap-tpls' + sufixo,'../vendor/angular-ui-bootstrap/ui-bootstrap' + sufixo],
+        'angularUiBootstrap2': ['../vendor/angular-ui-bootstrap/ui-bootstrap' + sufixo],
         'restangular': ['../vendor/restangular/restangular'],
         'underscore': ['../vendor/underscore/underscore' + sufixo],
         'lodash': ['../vendor/lodash/lodash.core'],
@@ -31,6 +32,7 @@ requirejs.config({
         'ngMap':['../vendor/angular-maps/ng-map'+sufixo],
         async: '../vendor/requirejs/async',
         'angularNgTable':['../vendor/angular-ng-tables/ng-table' + sufixo],
+        'angularConfirm':['../vendor/angular-confirm/angular-confirm'],
 
 
     },
@@ -45,6 +47,9 @@ requirejs.config({
         'angularUiBootstrap': {
             deps: ['angular'],
             exports: 'angularUiBootstrap'
+        }, 'angularUiBootstrap2': {
+            deps: ['angular'],
+            exports: 'angularUiBootstrap2'
         }, 'restangular': {
             deps: ['angular','underscore'],
             exports: 'restangular'
@@ -79,6 +84,10 @@ requirejs.config({
         'angularNgTable': {
             deps: ['angular'],
             exports: 'angularNgTable'
+        },
+        'angularConfirm': {
+            deps: ['angular'],
+            exports: 'angularConfirm'
         }
 
     }

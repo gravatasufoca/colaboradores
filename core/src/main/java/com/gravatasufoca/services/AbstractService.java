@@ -42,8 +42,8 @@ public abstract class AbstractService<E extends EntidadeBasica> implements Seria
     }
 
     protected void excluir(E entidade) {
-        if (getRepositorio() != null) {
-            getRepositorio().excluir(entidade);
+        if (getRepositorio() != null && entidade!=null && entidade.getId()!=null) {
+            getRepositorio().excluir(entidade.getId());
         }
     }
 
