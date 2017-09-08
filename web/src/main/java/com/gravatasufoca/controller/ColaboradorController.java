@@ -1,11 +1,12 @@
 package com.gravatasufoca.controller;
 
+import com.gravatasufoca.interceptor.Autenticado;
 import com.gravatasufoca.model.Colaborador;
 import com.gravatasufoca.model.ColaboradorDTO;
 import com.gravatasufoca.services.ColaboradorService;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,7 +16,8 @@ import java.util.Map;
 /**
  * criado por bruno em 30/08/17.
  */
-@RequestScoped
+@Autenticado
+@Stateless
 @Path(value = "/colaborador")
 public class ColaboradorController extends ControllerHelper {
 

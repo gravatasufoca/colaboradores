@@ -47,7 +47,7 @@ public class RepositorioGenerico<E> implements Repositorio<E> {
      */
 
     protected final Session getSession() {
-        return (Session) entityManager.getDelegate();
+        return  entityManager.unwrap(Session.class);
     }
 
     public E obterPorId(Serializable id) {

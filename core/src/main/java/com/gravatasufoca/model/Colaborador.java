@@ -1,6 +1,10 @@
 package com.gravatasufoca.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.solr.analysis.ASCIIFoldingFilterFactory;
+import org.apache.solr.analysis.BrazilianStemFilterFactory;
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
@@ -18,18 +22,30 @@ import java.util.Set;
 @Table(name = "tb_colaborador")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Indexed
+@AnalyzerDef(name = "defaultanalyzer",
+                tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+                filters = {
+
+                                @TokenFilterDef(factory = BrazilianStemFilterFactory.class),
+
+                                @TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
+
+                                @TokenFilterDef(factory = LowerCaseFilterFactory.class)
+                })
 public class Colaborador extends EntidadeBasica {
 
     private static final long serialVersionUID = 2886185930623763037L;
 
     private Integer id;
     @XmlElement
-    @Field(index = Index.TOKENIZED, store = Store.NO)
+    @Field(index = Index.YES, store = Store.YES)
     @Analyzer(definition = "defaultanalyzer")
     private String nome;
     @XmlElement
     private String resumo;
     @XmlElement
+    @Field(index = Index.YES, store = Store.YES)
+    @Analyzer(definition = "defaultanalyzer")
     private String endereco;
     @XmlAttribute
     private Cargo cargo;

@@ -3,7 +3,8 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="testecolobaradorPU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
+        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
         <class>com.gravatasufoca.model.Colaborador</class>
         <class>com.gravatasufoca.model.Cargo</class>
         <class>com.gravatasufoca.model.Compentencia</class>
@@ -29,9 +30,12 @@
             <property name="hibernate.c3p0.max_statements" value="50"/>
             <property name="hibernate.c3p0.idle_test_period" value="3000"/>
 
-            <property name="hibernate.search.indexing_strategy" value="manual"/>
-            <property name="hibernate.search.default.indexBase" value="/tmp/lucene"/>
-            <property name="hibernate.search.default.directory_provider" value="filesystem"/>
+
+            <property name="hibernate.search.default.directory_provider"
+                      value="filesystem"/>
+
+            <property name="hibernate.search.default.indexBase"
+                      value="/tmp/lucene/indexes"/>
         </properties>
     </persistence-unit>
 </persistence>

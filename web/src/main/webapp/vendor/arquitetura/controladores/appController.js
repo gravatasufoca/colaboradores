@@ -4,7 +4,7 @@ define([
     function () {
         'use strict';
         try {
-            console.info("appController.js...........")
+            console.info("appController...")
             return angular.module('appController', []);
         }
         catch (e) {

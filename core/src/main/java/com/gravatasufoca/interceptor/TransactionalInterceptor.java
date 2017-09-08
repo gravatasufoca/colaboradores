@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Interceptor
 @Transacional
-public class TransionalInterceptor implements Serializable {
+public class TransactionalInterceptor implements Serializable {
 
     private static final long serialVersionUID = -1939469955361094666L;
     @Inject

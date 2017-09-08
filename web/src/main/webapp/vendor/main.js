@@ -12,6 +12,7 @@ requirejs.config({
         'jQuery': ['../vendor/jquery/jquery' + sufixo],
         'angular': ['../vendor/angularjs/angular' + sufixo],
         'angularSanitize': ['../vendor/angularjs/angular-sanitize' + sufixo],
+        'angularNgCookies': ['../vendor/angularjs/angular-cookies' + sufixo],
         'angularUiBootstrap': ['../vendor/angular-ui-bootstrap/ui-bootstrap-tpls' + sufixo,'../vendor/angular-ui-bootstrap/ui-bootstrap' + sufixo],
         'angularUiBootstrap2': ['../vendor/angular-ui-bootstrap/ui-bootstrap' + sufixo],
         'restangular': ['../vendor/restangular/restangular'],
@@ -45,6 +46,9 @@ requirejs.config({
         },'angularSanitize': {
             deps: ['angular'],
             exports: 'angularSanitize'
+        },'angularNgCookies': {
+            deps: ['angular'],
+            exports: 'angularNgCookies'
         },
         'angularUiBootstrap': {
             deps: ['angular'],

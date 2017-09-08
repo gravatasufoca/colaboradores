@@ -6,13 +6,13 @@ define(['msAppJs'], function (app) {
         '$timeout',
         'colaboradorService',
         '$notifyService',
-        "$state", "NgTableParams", "$q",
+        "$state", "NgTableParams", "$q",'Upload',
         function ($scope,
                   $rootScope,
                   $timeout,
                   colaboradorService,
                   $notifyService,
-                  $state, NgTableParams, $q) {
+                  $state, NgTableParams, $q,Upload) {
 
 
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams, error) {
@@ -37,15 +37,31 @@ define(['msAppJs'], function (app) {
                     $notifyService.loading();
                     return colaboradorService.pesquisar(params.page(),$scope.pesquisa.criterio).then(function (resultado) {
                         params.total(resultado.resultado.length);
+                        var data=fixImage(resultado.resultado);
                         $notifyService.close();
-                        return resultado.resultado;
+                        return data;
                     });
                 },
                 counts: [], // hide page counts control
                 total: 1,  // value less than count hide pagination
             });
 
-            // $scope.tabela.reload();
+            var fixImage=function (colaboradores) {
+
+               return _.map(colaboradores,function (colaborador) {
+                    if(colaborador.avatar){
+                        var blob= Upload.dataUrltoBlob("data:text/plain;base64,"+colaborador.avatar,"foto");
+
+                        Upload.dataUrl(new File([blob], "foto"), false).then(function(url){
+                            colaborador.file=url;
+                            colaborador.avatar=null;
+                        });
+                    }else{
+                        colaborador.file=colaboradorService.avatar;
+                    }
+                    return colaborador;
+                })
+            }
 
 
         }]);

@@ -31,6 +31,10 @@ require(['msAppJs',
                             $scope.colaborador.unidade.texto=$scope.colaborador.unidade.nome;
                         }
                         montarCompetencias();
+                        var blob = Upload.dataUrltoBlob($scope.colaborador.avatar?  "data:text/plain;base64," + $scope.colaborador.avatar:colaboradorService.avatar, "foto");
+                        Upload.dataUrl(new File([blob], "foto"), false).then(function (url) {
+                            $scope.file = url;
+                        });
                     });
                 }
 
@@ -45,6 +49,7 @@ require(['msAppJs',
 
             $scope.tiposContatos = [];
             $scope.file=[];
+            $scope.icones=colaboradorService.iconesContato;
             /**
              * Dados do login e senha
              */
@@ -77,7 +82,6 @@ require(['msAppJs',
 
             $scope.enderecoMudou = function () {
                 $scope.place = this.getPlace();
-                console.log('location', $scope.place.geometry.location);
                 $scope.map.setCenter($scope.place.geometry.location);
             }
             NgMap.getMap().then(function (map) {
@@ -155,7 +159,6 @@ require(['msAppJs',
                             text: 'Sim',
                             btnClass: 'btn-warning',
                             action: function (scope, button) {
-                                console.info("contato", contato)
                                 contato.excluido = true;
                                 $scope.$apply();
                             }
@@ -231,9 +234,31 @@ require(['msAppJs',
                 $scope.file=file;
             }
 
+            $scope.fileBackground={};
             $scope.$watch("file",function () {
                 if ($scope.file != null) {
-                    console.info($scope.file)
+                    if(typeof $scope.file =='string'){
+                        $scope.fileBackground = {
+                            'background-image': "url(" + $scope.file + ")",
+                            'background-size': '315px 275px'
+                        };
+                    }else {
+                        Upload.dataUrl($scope.file, false).then(function (url) {
+                            console.info("url", url)
+                            $scope.fileBackground = {
+                                'background-image': "url(" + url + ")",
+                                'background-size': '315px 275px'
+                            };
+                        });
+                    }
+                    if(!$scope.colaborador.avatar) {
+                        $scope.labelBackground = {'color': 'black'};
+                    }else{
+                        $scope.labelBackground = {'color': 'white'};
+                    }
+                }else{
+                    $scope.labelBackground={'color':'black'};
+                    $scope.fileBackground={};
                 }
             });
 

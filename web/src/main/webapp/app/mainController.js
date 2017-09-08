@@ -18,17 +18,31 @@ define(['msAppJs',
         '$state',
         '$rootScope',
         '$http',
-        'routeService',
+        'routeService','autenticacaoService',
         function ($scope,
                   $timeout,
                   $filter,
                   $state,
                   $rootScope,
                   $http,
-                  routeService) {
+                  routeService,autenticacaoService) {
 
 
             routeService.create(colaboradorRoute);
+
+
+
+            /**
+             * Efetua o logout
+             */
+            $scope.logout = function () {
+                autenticacaoService.sair()
+                    .then(function (segurancaServiceRetorno) {
+                        $state.go('login');
+                    }, function (e) {
+                        $state.go('login');
+                    });
+            };
 
 
 

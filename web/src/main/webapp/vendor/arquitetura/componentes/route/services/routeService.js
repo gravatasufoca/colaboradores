@@ -80,7 +80,7 @@ define(['componentes/route/route'],
 
 			var deferred = $q.defer();
 
-			var defaultRoute = (typeof appConfig.defaultRoute != "undefined") ? appConfig.defaultRoute : 'colaborador';
+			var defaultRoute = (typeof appConfig.defaultRoute != "undefined") ? appConfig.defaultRoute : 'login';
 			route.$urlRouterProvider.otherwise(defaultRoute);
 
 			if(typeof content == 'string') {

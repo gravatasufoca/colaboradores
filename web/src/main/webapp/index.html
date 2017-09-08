@@ -26,7 +26,13 @@
 
 </head>
 <body id="content" ng-controller="mainController">
-<section id="topoAbsoluto" class="jumbotron"></section>
+<section id="topoAbsoluto" class="jumbotron">
+    <div class="col">
+        <a ng-show="isUsuarioAutenticado" ng-click="logout()">
+            <span class="icone fa fa-sign-out"></span>Sair
+        </a>
+    </div>
+</section>
 <div class="container topup">
     <div class="row">
         <div class="col">

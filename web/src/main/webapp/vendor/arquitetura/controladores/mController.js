@@ -1,5 +1,6 @@
 define([
-        'controllers/appController'
+        'controllers/appController',
+        'pages/login/login'
     ],
     function (appController) {
         'use strict';
@@ -23,35 +24,21 @@ define([
                     };
 
 
-                    /**
-                     * Controlador de MENU.
-                     * Escopo GLOBAL da aplicação.
-                     */
-                    $scope.menu = [];
-
-                    $scope.alterarMenu = function (data) {
-                        if (data)
-                            $scope.menu = data;
-                    };
-
-                    var loginModule = (typeof appConfig.login != 'undefined' && typeof appConfig.login.module != 'undefined') ? appConfig.login.module : 'login';
 
                     var loginRoutes = [{
-                        module: loginModule,
+                        module: "login",
                         view: 'login',
-                        resolve: 'login',
                         controller: 'loginController',
                         text: 'Login'
                     },
                         {
-                            module: loginModule,
+                            module: 'login',
                             text: 'logout',
-                            resolve: 'login',
                             controller: 'loginController',
                             view: 'login'
                         }];
 
-                    routeService.create(loginRoutes);
+                     routeService.create(loginRoutes);
 
                     /*
                      * Recuperando as informações do usuário em caso de atualização da pagina

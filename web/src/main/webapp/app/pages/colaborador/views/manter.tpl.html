@@ -16,13 +16,16 @@
 
         <div class="row">
             <div class="col-4">
-                <div ngf-drop ngf-select ng-model="file" class="drop-box"
+                <div ngf-drop ngf-select ng-model="file" class="drop-box align-middle" ng-style="fileBackground"
                      ngf-drag-over-class="'dragover'" ngf-multiple="false" ngf-allow-dir="true"
                      accept="image/*"
-                     ngf-pattern="'image/*'">Solte a imagem aqui ou clique para enviar</div>
+                     ngf-pattern="'image/*'">
+
+                    <span class="label-anexo" ng-style="labelBackground">Solte a imagem aqui ou clique para enviar</span>
+
+                </div>
                 <div ngf-no-file-drop>Drag/Drop não suportado</div>
 
-                <img ng-src="data:image/png;base64,{{colaborador.avatar}}" ngf-thumbnail="file"  ngf-size="{width:200, height:200, quality:1.0}" />
             </div>
             <div class="col">
                 <div class="form-group has-error has-feedback">
@@ -73,10 +76,10 @@
             <div class="col">
                 <table class="table table-striped">
                     <tr ng-repeat="contato in colaborador.contatos | filter:{excluido:false}">
-                        <td></td>
+                        <td class="text-center"><i class="fa fa-3x" ng-class="icones[contato.tipoContato.id+''].class"></i></td>
                         <td><select ng-model="contato.tipoContato" class="form-control"
                                     ng-options="tc as tc.nome for tc in tiposContatos track by tc.id"></select></td>
-                        <td><input ng-model="contato.contato" class="form-control"/></td>
+                        <td><input ng-model="contato.contato" class="form-control"  type="{{icones[contato.tipoContato.id+''].tipo}}" /></td>
                         <td class="text-right">
                             <button type="button" ng-click="apagarContato(contato)"
                                     class="btn btn-danger"

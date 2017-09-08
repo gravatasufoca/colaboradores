@@ -1,5 +1,12 @@
 var appConfig = {
-    appContextRoot:"colaboradores"
+    appContextRoot:"colaboradores",
+    login:{
+        url:"api/oauth/login",
+        url_usuario:"api/oauth/token"
+    },
+    logout: {
+        url: 'api/oauth/logout'
+    },
 };
 
 
